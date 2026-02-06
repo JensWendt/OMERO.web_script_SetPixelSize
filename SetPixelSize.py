@@ -185,13 +185,13 @@ def run_script():
     data_types = [rstring('Dataset'), rstring('Plate'), rstring('Screen'), rstring('Project'), rstring('Image')]
     units = [rstring('MICROMETER'), rstring('NANOMETER'), rstring('ANGSTROM'), rstring('MILLIMETER')]
     client = scripts.client(
-        'Set_Pixelsize',
+        'Set_pixel_size',
         """
     This script sets the pixel size for one/multiple Images.\n
     Works for single Images or all Images in a Dataset, Plate, Screen or Project.\n
     Default behavior is to overwrite the existing pixel size values, but you can
     also choose to only set the pixel size for Images where this information is missing.
-    If you provide a value for pixel size Z and the image does not have a Z dimension this will be ignored.
+    If you provide a value for pixel size Z and the image does not have a Z dimension this will be ignored.\n
         """,
         scripts.String(
             "Data_Type", optional=False, grouping="1",
@@ -247,11 +247,11 @@ def run_script():
 
         # wrap client to use the Blitz Gateway
         conn = BlitzGateway(client_obj=client)
-        print("script params")
+        print("script params:")
         for k, v in script_params.items():
-            print(k, v)
+            print("    ",k, v)
         print("################################")
-        # if none of the keys PARAM_PIXEL_SIZE_Z, PARAM_PIXEL_SIZE_Y or PARAM_PIXEL_SIZE_X are not
+        # if none of the keys PARAM_PIXEL_SIZE_Z, PARAM_PIXEL_SIZE_Y or PARAM_PIXEL_SIZE_X are
         # provided we can not set the pixel size and therefore stop the script with an error message
         if not any(k in script_params for k in [PARAM_PIXEL_SIZE_Z, PARAM_PIXEL_SIZE_Y, PARAM_PIXEL_SIZE_X]):
             client.setOutput("Message", rstring("No pixel size value provided. "
@@ -259,7 +259,8 @@ def run_script():
         else:
             numberOfImages, counter = set_pixel_value(conn, script_params)
             if counter == 0:
-                message = f"No new pixel size values were set. All {numberOfImages} Image(s) already had pixel size information."
+                message = f"No new pixel size values were set. All {numberOfImages} "
+                "Image(s) already had pixel size information."
             else:
                 message = f"Set new pixel size(s) for {counter} of {numberOfImages} Image(s)."
             client.setOutput("Message", rstring(message))
