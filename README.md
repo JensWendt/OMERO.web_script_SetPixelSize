@@ -1,3 +1,13 @@
+# OMERO utility scripts
+
+This is a hodgepodge of different utility scripts for OMERO.web, all run on the University Münster OMERO [instance](https://omero-imaging.uni-muenster.de/webclient/).
+
+From very simple things, e.g. setting the pixel size, to more complicated stuff like specific adaptations of the vanilla `Dataset_To_Plate.py` script.
+
+There is (almost) no common style as these scripts stem from different timepoints in my career at Uni Münster and reflect different skill levels.
+
+For the beginning every script will have its README.md combined into this main one.
+
 ## OMERO.web script for setting pixel sizes
 Very simple OMERO.web script that is capable of setting pixel sizes for X, Y and Z dimensions of OMERO Images. It can iterate over all Images in an OMERO Project, Dataset, Screen or Plate.
 
