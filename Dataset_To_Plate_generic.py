@@ -30,7 +30,11 @@ This script converts a Dataset of Images to a Plate, with one image per Well.
 import omero.scripts as scripts
 from omero.gateway import BlitzGateway
 import omero
-import regex as re
+# try importing regex, otherwise fallback to re
+try:
+    import regex as re
+except ImportError:
+    import re
 from collections import defaultdict
 
 from omero.rtypes import rint, rlong, rstring, robject, unwrap
